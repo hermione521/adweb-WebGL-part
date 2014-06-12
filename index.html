@@ -20,100 +20,97 @@
 			// 		[2, 2, 2, 2, 2, 2]
 			// 	]
 			// }
-			var geoMap;
-			$.getJSON('/json/data.json', function(json) {
-                geoMap = JSON.parse(json);
-            });
+			$.getJSON('./json/data.json', function(geoMap) {
+				var step = 1;
 
-			var step = 1;
+				var scene = new THREE.Scene();
+				var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+				var renderer = new THREE.WebGLRenderer();
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				renderer.setClearColor(0xfaf8ef, 1);
+				document.body.appendChild(renderer.domElement);
 
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setClearColor(0xfaf8ef, 1);
-			document.body.appendChild(renderer.domElement);
+				var half = (geoMap.size - 1) / 2;
+				var geometry1 = new THREE.Geometry();
+				var geometry2 = new THREE.Geometry();
+				var i, j;
 
-			var half = (geoMap.size - 1) / 2;
-			var geometry1 = new THREE.Geometry();
-			var geometry2 = new THREE.Geometry();
-			var i, j;
-
-			// line for rows
-			for (i = 0; i < half; ++i){
-				for (j = 0; j < geoMap.size; ++j){
-					geometry1.vertices.push(new THREE.Vector3(
-						(i * 2 - half) * step,
-						geoMap.map[i * 2][j],
-						(j - half) * step
-					));
+				// line for rows
+				for (i = 0; i < half; ++i){
+					for (j = 0; j < geoMap.size; ++j){
+						geometry1.vertices.push(new THREE.Vector3(
+							(i * 2 - half) * step,
+							geoMap.map[i * 2][j],
+							(j - half) * step
+						));
+					}
+					for (j = geoMap.size - 1; j >= 0; --j){
+						geometry1.vertices.push(new THREE.Vector3(
+							(i * 2 - half + 1) * step,
+							geoMap.map[i * 2 + 1][j],
+							(j - half) * step
+						));
+					}
 				}
-				for (j = geoMap.size - 1; j >= 0; --j){
-					geometry1.vertices.push(new THREE.Vector3(
-						(i * 2 - half + 1) * step,
-						geoMap.map[i * 2 + 1][j],
-						(j - half) * step
-					));
+				if (i * 2 === geoMap.size - 1){
+					for (j = 0; j < geoMap.size; ++j){
+						geometry1.vertices.push(new THREE.Vector3(
+							(i * 2 - half) * step,
+							geoMap.map[i * 2][j],
+							(j - half) * step
+						));
+					}
 				}
-			}
-			if (i * 2 === geoMap.size - 1){
-				for (j = 0; j < geoMap.size; ++j){
-					geometry1.vertices.push(new THREE.Vector3(
-						(i * 2 - half) * step,
-						geoMap.map[i * 2][j],
-						(j - half) * step
-					));
+
+				//line for columns
+				for (i = 0; i < half; ++i){
+					for (j = 0; j < geoMap.size; ++j){
+						geometry2.vertices.push(new THREE.Vector3(
+							(j - half) * step,
+							geoMap.map[j][i * 2],
+							(i * 2 - half) * step
+						));
+					}
+					for (j = geoMap.size - 1; j >= 0; --j){
+						geometry2.vertices.push(new THREE.Vector3(
+							(j - half) * step,
+							geoMap.map[j][i * 2 + 1],
+							(i * 2 - half + 1) * step
+						));
+					}
 				}
-			}
-
-			//line for columns
-			for (i = 0; i < half; ++i){
-				for (j = 0; j < geoMap.size; ++j){
-					geometry2.vertices.push(new THREE.Vector3(
-						(j - half) * step,
-						geoMap.map[j][i * 2],
-						(i * 2 - half) * step
-					));
+				if (i * 2 === geoMap.size - 1){
+					for (j = 0; j < geoMap.size; ++j){
+						geometry2.vertices.push(new THREE.Vector3(
+							(j - half) * step,
+							geoMap.map[j][i * 2],
+							(i * 2 - half) * step
+						));
+					}
 				}
-				for (j = geoMap.size - 1; j >= 0; --j){
-					geometry2.vertices.push(new THREE.Vector3(
-						(j - half) * step,
-						geoMap.map[j][i * 2 + 1],
-						(i * 2 - half + 1) * step
-					));
-				}
-			}
-			if (i * 2 === geoMap.size - 1){
-				for (j = 0; j < geoMap.size; ++j){
-					geometry2.vertices.push(new THREE.Vector3(
-						(j - half) * step,
-						geoMap.map[j][i * 2],
-						(i * 2 - half) * step
-					));
-				}
-			}
 
-			var material = new THREE.LineBasicMaterial({color: 0x887a6c});
-			var line1 = new THREE.Line(geometry1, material);
-			var line2 = new THREE.Line(geometry2, material);
+				var material = new THREE.LineBasicMaterial({color: 0x887a6c});
+				var line1 = new THREE.Line(geometry1, material);
+				var line2 = new THREE.Line(geometry2, material);
 
-			scene.add(line1);
-			scene.add(line2);
+				scene.add(line1);
+				scene.add(line2);
 
-			camera.position.z = 5;
-			camera.position.y = 3;
+				camera.position.z = 5;
+				camera.position.y = 3;
 
-			var render = function () {
-				requestAnimationFrame(render);
+				var render = function () {
+					requestAnimationFrame(render);
 
-				line1.rotation.y += 0.01;
-				line2.rotation.y += 0.01;
+					line1.rotation.y += 0.01;
+					line2.rotation.y += 0.01;
 
-				renderer.render(scene, camera);
-			};
+					renderer.render(scene, camera);
+				};
 
-			render();
+				render();
+            		});
 		</script>
 	</body>
 </html>
