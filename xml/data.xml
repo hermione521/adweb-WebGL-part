@@ -1,52 +1,54 @@
-<size>6</size>
-<name>坑</name>
-<map type="array">
-	<values type="array">
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-	</values>
-	<values type="array">
-		<value>2</value>
-		<value>1</value>
-		<value>1</value>
-		<value>1</value>
-		<value>1</value>
-		<value>2</value>
-	</values>
-	<values type="array">
-		<value>2</value>
-		<value>1</value>
-		<value>0</value>
-		<value>0</value>
-		<value>1</value>
-		<value>2</value>
-	</values>
-	<values type="array">
-		<value>2</value>
-		<value>1</value>
-		<value>0</value>
-		<value>0</value>
-		<value>1</value>
-		<value>2</value>
-	</values>
-	<values type="array">
-		<value>2</value>
-		<value>1</value>
-		<value>1</value>
-		<value>1</value>
-		<value>1</value>
-		<value>2</value>
-	</values>
-	<values type="array">
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-		<value>2</value>
-	</values>
-</map>
+<graph>
+	<size>6</size>
+	<name>坑</name>
+	<map type="array">
+		<values type="array">
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+		</values>
+		<values type="array">
+			<value>2</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>2</value>
+		</values>
+		<values type="array">
+			<value>2</value>
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>1</value>
+			<value>2</value>
+		</values>
+		<values type="array">
+			<value>2</value>
+			<value>1</value>
+			<value>0</value>
+			<value>0</value>
+			<value>1</value>
+			<value>2</value>
+		</values>
+		<values type="array">
+			<value>2</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>1</value>
+			<value>2</value>
+		</values>
+		<values type="array">
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+			<value>2</value>
+		</values>
+	</map>
+</graph>

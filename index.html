@@ -5,8 +5,8 @@
 		<style>canvas { width: 100%; height: 100% }</style>
 	</head>
 	<body>
-		<script src="js/three.min.js"></script>
-		<script src="js/jquery.min.js"></script>
+		<script src="./js/three.min.js"></script>
+		<script src="./js/jquery.min.js"></script>
 		<script>
 			// var geoMap = {
 			// 	"size": 6,
@@ -23,19 +23,19 @@
 			
 			$.get('./xml/data.xml', function (xml) {
 				var geoMap = {};
-				geoMap.size = $(xml).find('size').text();
-															console.log("size = " + geoMap.size);
-				geoMap.name = $(xml).find('name').text();
-				$('map', xml).each(function (i) {
-					geoMap.map = [];
-					$('values', this).each(function (i) {
-						var row = [];
-						$('value', this).each(function (i) {
-															console.log("inner most this = ");
-															console.dir(this);
-							row.push(this.text());
-						})
-						geoMap.map.push(row);
+				$('graph', xml).each(function (i){
+					console.log(this);
+					geoMap.size = $(this).find('size').text();
+					geoMap.name = $(this).find('name').text();
+					$('map', xml).each(function (i) {
+						geoMap.map = [];
+						$('values', this).each(function (i) {
+							var row = [];
+							$('value', this).each(function (i) {
+								row.push($(this).text());
+							})
+							geoMap.map.push(row);
+						});
 					});
 				});
 				console.dir(geoMap);
