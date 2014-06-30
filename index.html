@@ -24,7 +24,6 @@
 			$.get('./xml/data.xml', function (xml) {
 				var geoMap = {};
 				$('graph', xml).each(function (i){
-					console.log(this);
 					geoMap.size = $(this).find('size').text();
 					geoMap.name = $(this).find('name').text();
 					$('map', xml).each(function (i) {
@@ -38,7 +37,6 @@
 						});
 					});
 				});
-				console.dir(geoMap);
 
 
 				var step = 1;
